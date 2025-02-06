@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Surprise</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #ffe6e6;
+        }
+        img {
+            width: 200px;
+            height: auto;
+            animation: heartbeat 1.5s infinite;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        h1 {
+            color: #ff4d4d;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #yes {
+            background-color: green;
+            color: white;
+        }
+        #no {
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://media3.giphy.com/media/c76IJLufpNwSULPk77/giphy.webp?cid=790b76111l6ni7bikkdvoohps0hulgfnonig3a60nn5nevki&ep=v1_gifs_trending&rid=giphy.webp&ct=g" alt="Love Sticker">  
+    <h1>Will you be my Valentine?</h1>
+
+    <div class="buttons">
+        <button id="yes" onclick="redirectToLove()">Yes</button>
+        <button id="no" onclick="makeYesBigger()">No</button>
+    </div>
+
+    <script>
+        let yesButton = document.getElementById("yes");
+        let noButton = document.getElementById("no");
+        let size = 20;
+
+        function makeYesBigger() {
+            size += 20;
+            yesButton.style.fontSize = size + "px";
+            yesButton.style.padding = (size / 2) + "px";
+            
+            if (size >= 300) {
+                noButton.style.display = "none"; // Hide "No" button when Yes is too big
+            }
+        }
+
+        function redirectToLove() {
+            window.location.href = "love.html";
+        }
+    </script>
+
+</body>
+</html>
