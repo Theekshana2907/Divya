@@ -24,7 +24,7 @@
         }
 
         img {
-            width: 150px;
+            width: 500px;
             height: auto;
             animation: heartbeat 1.5s infinite;
         }
@@ -37,7 +37,7 @@
 
         h1 {
             color: #ff4d4d;
-            font-size: 24px;
+            font-size: 50px;
             margin-top: 20px;
         }
 
@@ -52,20 +52,25 @@
             padding: 10px 20px;
             border: none;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease-in-out;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
 
         #yes {
             background-color: green;
             color: white;
+            font-size: 18px;
+            padding: 10px 20px;
         }
 
         #no {
             background-color: red;
             color: white;
+            font-size: 18px;
+            padding: 10px 20px;
         }
 
         .label {
@@ -83,7 +88,7 @@
                 font-size: 20px;
             }
             img {
-                width: 120px;
+                width: 200px;
             }
             button {
                 font-size: 16px;
@@ -102,7 +107,7 @@
             <span class="label">YES</span>
             <span class="message">Click me!</span>
         </button>
-        <button id="no" onclick="makeYesBigger()">
+        <button id="no" onclick="shrinkNoButton()">
             <span class="label">NO</span>
             <span class="message">Don't click!</span>
         </button>
@@ -111,8 +116,8 @@
     <script>
         let yesButton = document.getElementById("yes");
         let noButton = document.getElementById("no");
-        let size = 18;
         let yesClickCount = 0;
+        let noClickCount = 0;
 
         const noTexts = [
             "Are you sure?", 
@@ -132,17 +137,26 @@
             "You made my day!"
         ];
 
-        function makeYesBigger() {
-            if (size < 100) {
-                size += 10;
-                yesButton.style.fontSize = size + "px";
-                yesButton.style.padding = (size / 3) + "px";
+        function shrinkNoButton() {
+            noClickCount++;
+
+            if (noClickCount < 10) {
+                let scale = 1 - (noClickCount * 0.1);
+                noButton.style.transform = `scale(${scale})`;
             } else {
-                noButton.style.display = "none"; 
+                noButton.style.display = "none"; // No button disappears after 10 clicks
             }
 
             let randomIndex = Math.floor(Math.random() * noTexts.length);
             noButton.querySelector(".message").innerText = noTexts[randomIndex];
+
+            increaseYesButton(); // Call function to make Yes button bigger
+        }
+
+        function increaseYesButton() {
+            let currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+            yesButton.style.fontSize = (currentSize + 5) + "px"; // Increase font size
+            yesButton.style.padding = (currentSize + 5) + "px " + (currentSize + 10) + "px"; // Increase padding
         }
 
         function changeYesText() {
