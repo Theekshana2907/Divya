@@ -49,10 +49,17 @@
 
         button {
             font-size: 18px;
-            padding: 10px 20px;
+            padding: 15px 30px;
             border: none;
             cursor: pointer;
             transition: all 0.3s ease-in-out;
+            border-radius: 50px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -60,23 +67,40 @@
         }
 
         #yes {
-            background-color: green;
+            background: linear-gradient(to right, #28a745, #32cd32);
             color: white;
-            font-size: 18px;
-            padding: 10px 20px;
         }
 
         #no {
-            background-color: red;
+            background: linear-gradient(to right, #ff4d4d, #ff0000);
             color: white;
-            font-size: 18px;
-            padding: 10px 20px;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        button::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease-in-out;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+        }
+
+        button:hover::before {
+            transform: translate(-50%, -50%) scale(1);
         }
 
         .label {
             font-weight: bold;
             font-size: 20px;
-            text-transform: uppercase;
         }
 
         .message {
@@ -88,11 +112,11 @@
                 font-size: 20px;
             }
             img {
-                width: 400px;
+                width: 200px;
             }
             button {
                 font-size: 16px;
-                padding: 8px 16px;
+                padding: 12px 24px;
             }
         }
     </style>
