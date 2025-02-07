@@ -5,41 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine's Surprise</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
             text-align: center;
             font-family: Arial, sans-serif;
             background-color: #ffe6e6;
+            padding: 20px;
         }
+
         img {
-            width: 200px;
+            width: 150px;
             height: auto;
             animation: heartbeat 1.5s infinite;
         }
+
         @keyframes heartbeat {
             0% { transform: scale(1); }
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
+
         h1 {
             color: #ff4d4d;
-        }
-        .buttons {
+            font-size: 24px;
             margin-top: 20px;
         }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
         button {
-            font-size: 20px;
+            font-size: 18px;
             padding: 10px 20px;
             border: none;
             cursor: pointer;
             transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
         #yes {
             background-color: green;
             color: white;
         }
+
         #no {
             background-color: red;
             color: white;
+        }
+
+        .label {
+            font-weight: bold;
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+
+        .message {
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 20px;
+            }
+            img {
+                width: 120px;
+            }
+            button {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
         }
     </style>
 </head>
@@ -49,27 +98,60 @@
     <h1>Will you be my Valentine?</h1>
 
     <div class="buttons">
-        <button id="yes" onclick="redirectToLove()">Yes</button>
-        <button id="no" onclick="makeYesBigger()">No</button>
+        <button id="yes" onclick="changeYesText()">
+            <span class="label">YES</span>
+            <span class="message">Click me!</span>
+        </button>
+        <button id="no" onclick="makeYesBigger()">
+            <span class="label">NO</span>
+            <span class="message">Don't click!</span>
+        </button>
     </div>
 
     <script>
         let yesButton = document.getElementById("yes");
         let noButton = document.getElementById("no");
-        let size = 20;
+        let size = 18;
+        let yesClickCount = 0;
+
+        const noTexts = [
+            "Are you sure?", 
+            "Don't say so!", 
+            "Think it again!", 
+            "Really?!", 
+            "Give it a chance!", 
+            "You might regret this!", 
+            "Last chance!", 
+            "Think about us!", 
+            "Is that your final answer?"
+        ];
+
+        const yesTexts = [
+            "Seriously?", 
+            "Are you real?", 
+            "You made my day!"
+        ];
 
         function makeYesBigger() {
-            size += 20;
-            yesButton.style.fontSize = size + "px";
-            yesButton.style.padding = (size / 2) + "px";
-            
-            if (size >= 300) {
-                noButton.style.display = "none"; // Hide "No" button when Yes is too big
+            if (size < 100) {
+                size += 10;
+                yesButton.style.fontSize = size + "px";
+                yesButton.style.padding = (size / 3) + "px";
+            } else {
+                noButton.style.display = "none"; 
             }
+
+            let randomIndex = Math.floor(Math.random() * noTexts.length);
+            noButton.querySelector(".message").innerText = noTexts[randomIndex];
         }
 
-        function redirectToLove() {
-            window.location.href = "love.html";
+        function changeYesText() {
+            if (yesClickCount < yesTexts.length) {
+                yesButton.querySelector(".message").innerText = yesTexts[yesClickCount];
+                yesClickCount++;
+            } else {
+                window.location.href = "love.html";
+            }
         }
     </script>
 
