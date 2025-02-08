@@ -23,6 +23,54 @@
             padding: 20px;
         }
 
+        #nameOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #nameOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        z-index: 9999; 
+    }
+        #nameInput {
+            font-size: 20px;
+            padding: 10px;
+            width: 60%;
+            border: none;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #submitName {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
         img {
             border-radius: 50px;
             width: 450px;
@@ -65,10 +113,6 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
         }
 
         #yes {
@@ -85,34 +129,18 @@
             transform: scale(1.15);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
-
-        .label {
-            font-weight: bold;
-            font-size: 22px;
-        }
-
-        .message {
-            font-size: 16px;
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 28px;
-            }
-            img {
-                width: 250px;
-            }
-            button {
-                font-size: 16px;
-                padding: 12px 24px;
-            }
-        }
     </style>
 </head>
 <body>
 
+    <div id="nameOverlay">
+        <h2>Enter Your Name</h2>
+        <input type="text" id="nameInput" placeholder="Type your name...">
+        <button id="submitName">Submit</button>
+    </div>
+
     <img src="https://media3.giphy.com/media/c76IJLufpNwSULPk77/giphy.webp" alt="Love Sticker">  
-    <h1>Will you be my Valentine Divya?</h1>
+    <h1 id="valentineMessage">Will you be my Valentine, <span id="namePlaceholder">Name</span>?</h1>
 
     <div class="buttons">
         <button id="yes" onclick="changeYesText()">
@@ -128,6 +156,21 @@
     <script>
         let yesButton = document.getElementById("yes");
         let noButton = document.getElementById("no");
+        let nameOverlay = document.getElementById("nameOverlay");
+        let nameInput = document.getElementById("nameInput");
+        let submitName = document.getElementById("submitName");
+        let namePlaceholder = document.getElementById("namePlaceholder");
+
+        submitName.addEventListener("click", function() {
+            let userName = nameInput.value.trim();
+            if (userName === "") {
+                alert("Plz add a name");
+            } else {
+                namePlaceholder.textContent = userName;
+                nameOverlay.style.display = "none";
+            }
+        });
+
         let yesClickCount = 0;
         let noClickCount = 0;
 
