@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,19 +39,21 @@
         }
 
         #nameOverlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        z-index: 9999; 
-    }
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 9999;
+            /* Added this line */
+        }
+
         #nameInput {
             font-size: 20px;
             padding: 10px;
@@ -79,13 +82,21 @@
         }
 
         @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         h1 {
-            font-size: 50px;
+            font-size: 40px;
             color: white;
             text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
             background: linear-gradient(to right, #ff4d4d, #ff1a75);
@@ -129,8 +140,15 @@
             transform: scale(1.15);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
+
+        h2 {
+            color: white;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
+
 <body>
 
     <div id="nameOverlay">
@@ -139,16 +157,16 @@
         <button id="submitName">Submit</button>
     </div>
 
-    <img src="https://media3.giphy.com/media/c76IJLufpNwSULPk77/giphy.webp" alt="Love Sticker">  
-    <h1 id="valentineMessage">Will you be my Valentine, <span id="namePlaceholder">Name</span>?</h1>
+    <img src="https://media3.giphy.com/media/c76IJLufpNwSULPk77/giphy.webp" alt="Love Sticker">
+    <h1 id="valentineMessage">Will you be my Valentine, <span id="namePlaceholder">......</span>?</h1>
 
     <div class="buttons">
         <button id="yes" onclick="changeYesText()">
-            <span class="label">YES:  </span>
+            <span class="label">YES-: </span>
             <span class="message">Click me!</span>
         </button>
         <button id="no" onclick="shrinkNoButton()">
-            <span class="label">NO:  </span>
+            <span class="label">No-:</span>
             <span class="message">Don't click!</span>
         </button>
     </div>
@@ -161,12 +179,13 @@
         let submitName = document.getElementById("submitName");
         let namePlaceholder = document.getElementById("namePlaceholder");
 
-        submitName.addEventListener("click", function() {
+        submitName.addEventListener("click", function () {
             let userName = nameInput.value.trim();
             if (userName === "") {
                 alert("Plz add a name");
             } else {
                 namePlaceholder.textContent = userName;
+                localStorage.setItem('valentineName', userName); 
                 nameOverlay.style.display = "none";
             }
         });
@@ -175,20 +194,20 @@
         let noClickCount = 0;
 
         const noTexts = [
-            "Are you sure?", 
-            "Don't say so!", 
-            "Think it again!", 
-            "Really?!", 
-            "Give it a chance!", 
-            "You might regret this!", 
-            "Last chance!", 
-            "Think about us!", 
+            "Are you sure?",
+            "Don't say so!",
+            "Think it again!",
+            "Really?!",
+            "Give it a chance!",
+            "You might regret this!",
+            "Last chance!",
+            "Think about us!",
             "Is that your final answer?"
         ];
 
         const yesTexts = [
-            "Seriously?", 
-            "Are you real?", 
+            "Seriously?",
+            "Are you real?",
             "You made my day!"
         ];
 
@@ -211,7 +230,7 @@
         function increaseYesButton() {
             let currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
             yesButton.style.fontSize = (currentSize + 3) + "px";
-            yesButton.style.padding = (currentSize + 3) + "px " + (currentSize + 7) + "px";
+            yesButton.style.padding = (currentSize + 3) + "px " + (currentSize + 5) + "px";
         }
 
         function changeYesText() {
@@ -219,10 +238,13 @@
                 yesButton.querySelector(".message").innerText = yesTexts[yesClickCount];
                 yesClickCount++;
             } else {
-                window.location.href = "love.html";
+               
+                const userName = localStorage.getItem('valentineName') || 'pookie';
+                window.location.href = `love.html?name=${encodeURIComponent(userName)}`;
             }
         }
     </script>
 
 </body>
+
 </html>
