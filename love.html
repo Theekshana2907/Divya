@@ -17,7 +17,7 @@
             margin: 0;
         }
         img {
-            width: 400px;
+            width: 375px;
             height: auto;
             animation: heartbeat 1.5s infinite;
             border-radius: 20px;
@@ -45,6 +45,17 @@
 
     <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWZsOXF6MGw0N2VvNzYxemU5dHZxaTMwYXFoaW52dmw1OTYxZnlrNSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/26FLdmIp6wJr91JAI/200.webp" alt="Love Sticker">  
     <h1>Woooooooo!!!  <br> I love you pookie ;))</h1>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the stored name from localStorage
+            const userName = localStorage.getItem('valentineName');
+            const heading = document.querySelector('h1');
+            
+            // Replace "pookie" with the stored name if available
+            if (userName) {
+                heading.innerHTML = `Woooooooo!!!  <br> I love you ${userName} ;))`;
+            }
+        });
+    </script>
 </body>
 </html>
